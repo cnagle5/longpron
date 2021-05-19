@@ -1,0 +1,26 @@
+---
+title: "Longitudinal pronunciation something something"
+output: html_document
+---
+
+
+```{r, load-libs, echo=F, message=F, warning=F}
+library("tidyverse")
+library("here")
+library("janitor")
+```
+
+
+```{r, load-data, message=F}
+long_data <- read_csv(
+  file = here("Longitudinal Pronunciation Research Coding Book - Publication.csv"), 
+  skip = 2) %>% 
+  clean_names()
+```
+
+```{r, print-table}
+long_data %>% 
+  rmarkdown::paged_table()
+```
+
+<br><br><br><br>
