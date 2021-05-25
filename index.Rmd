@@ -1,26 +1,153 @@
 ---
-title: "Longitudinal pronunciation something something"
+title: "LongPron: Tracking Longitudinal L2 Pronunciation Research Longitudinally"
 output: html_document
+bibliography: Longitudinal.bibtex
+nocite: |
+  @*
+csl: apa-6th-edition.csl
 ---
 
-
 ```{r, load-libs, echo=F, message=F, warning=F}
-library("tidyverse")
+library("tidyr")
+library("dplyr")
 library("here")
 library("janitor")
+library("ggplot2")
+library("knitr")
+library("kableExtra")
 ```
 
+```{css, echo=F}
+caption {
+  color: black
+}
+```
+# Overview
+**Statement of Purpose**:This webpage is periodically updated with new longitudinal L2 pronunciation research that does not have a pronunciation-specific intervention. On this page, you can see the types of longitudinal studies that have been conducted up to this point, focusing on longitudinal design choices, such as study length and data points, and their intersection with participant sample and measurement characteristics. This page accompanies and builds upon Nagle (2021).
 
+Nagle, C. L. (2021). Assessing the state of the art in longitudinal L2 pronunciation research: Trends and future directions. *Journal of Second Language Pronunciation*.
+
+**Researchers**: If you published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006.
+
+**Authors**: If you notice an error in the coding for your article, please email me (cnagle[at]iastate.edu) so that I can correct it.
+
+**My Contact Information**:  
+Charlie Nagle  
+Iowa State University  
+Email: cnagle[at]iastate.edu
+
+# Current Data Set
 ```{r, load-data, message=F}
-long_data <- read_csv(
-  file = here("Longitudinal Pronunciation Research Coding Book - Publication.csv"), 
-  skip = 2) %>% 
+long_data <- read.csv(
+  file = here("Longitudinal Study Coding Book - R.csv")) %>% 
   clean_names()
+long_data$length_bin <- factor(long_data$length_bin, c("0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"),
+                               levels = c("0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"))
+long_data$participant_age_bin <- factor(long_data$participant_age_bin, c("Child", "Adolescent", "Adult"),
+                               levels = c("Child", "Adolescent", "Adult"))
 ```
-
 ```{r, print-table}
 long_data %>% 
   rmarkdown::paged_table()
 ```
+<br>
 
-<br><br><br><br>
+# Publication Trends
+```{r, gg-yearlypubs-longpron, fig.cap="**Figure 1**. Longitudinal L2 Pronunciation Publications by Year", fig.dim=c(5,4), warning=F}
+long_data %>%
+  filter(exclude_all_multiple_entries == "No") %>%
+  ggplot(aes(x=year)) +
+  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  theme_bw() +
+  labs(x="Publication Year", y = "Count") +
+  scale_x_continuous(breaks=c(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20))
+```
+<br>
+
+# Longitudinal Characteristics
+```{r, gg-lengthdatapoints, fig.cap="**Figure 2**. Study Length by Data Points", fig.dim=c(5,4), warning=F}
+long_data %>%
+  filter(exclude_all_multiple_entries == "No") %>%
+  ggplot(aes(x=length_months, y=data_points, color = l2)) +
+  geom_point(position=position_dodge(width=2), alpha=0.5, size=3) +
+  theme_bw() +
+  labs(x="Study Length in Months", y="Study Data Points") +
+  theme(legend.position="bottom") +
+  scale_y_continuous(breaks = c(2, 3, 4, 5, 6, 7, 8)) +
+  scale_x_continuous(breaks = c(0, 4, 8, 12, 16, 20, 24), limits=c(0, 30))
+```
+<br>
+```{r}
+long_data %>%
+  filter(exclude_all_multiple_entries == "No") %>%
+  tabyl(length_bin, data_points) %>%
+  adorn_totals( where = c("row", "col") ) %>%
+  adorn_percentages("row") %>%
+  adorn_pct_formatting() %>%
+  adorn_ns( position = "front" ) %>%
+  adorn_title("combined") %>%
+  kable(caption = "**Table 1**. Study Length by Study Data Points") %>%
+  kable_styling(bootstrap_options = c("bordered", "hover"))
+```
+<br>
+
+# Longitudinal Characteristics by Sample Characteristics
+```{r, gg-lengthsample, fig.cap="**Figure 3**. Study Length by Learner Age Group and Context of Learning.", fig.dim=c(7,5), warning=F}
+long_data %>%
+  filter(exclude_save_age_context == "No") %>%
+  ggplot(aes(x=length_bin)) + 
+  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  theme_bw() +
+  labs(x="Study Length", y="Count") +
+  facet_grid(context ~ participant_age_bin) +
+  theme(strip.background=element_blank()) +
+  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8)) + 
+  theme(axis.text.x=element_text(angle=45, vjust=.5))
+```
+<br>
+```{r, gg-pointssample, fig.cap="**Figure 4**. Study Length by Context of Learning for Adult Learners.", fig.dim=c(5,3), warning=F}
+long_data %>%
+  filter(exclude_save_age_context == "No") %>%
+  filter(participant_age_bin == "Adult") %>%
+  ggplot(aes(x=data_points)) + 
+  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  theme_bw() +
+  labs(x="Study Data Points", y="Count") +
+  facet_grid(~context) +
+  theme(strip.background=element_blank()) +
+  scale_x_continuous(limits=c(1,9), breaks=c(2,3,4,5,6,7,8)) +
+  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8))
+```
+<br>
+
+# Longitudinal Characteristics by Measurement Characteristics
+```{r, gg-lengthmeasurement, fig.cap="**Figure 5**. Study Length by Measurement Characteristics.", fig.dim=c(5,5), warning=F}
+long_data %>%
+  filter(exclude_save_sp == "No") %>%
+  filter(sp_task == "Production - Controlled" | sp_task == "Production - Spontaneous") %>%
+  ggplot(aes(length_bin)) + 
+  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  theme_bw() +
+  labs(x="Study Length", y="Count") +
+  facet_grid(sp_construct ~ sp_task) +
+  theme(strip.background=element_blank()) +
+  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8)) + 
+  theme(axis.text.x = element_text(angle=45, vjust=.5))
+```
+<br>
+```{r, gg-pointsmeasurement, fig.cap="**Figure 6**. Study Data Points by Measurement Characteristics.", fig.dim=c(5,5), warning=F}
+long_data %>%
+  filter(exclude_save_sp == "No") %>%
+  filter(sp_task == "Production - Controlled" | sp_task == "Production - Spontaneous") %>%
+  ggplot(aes(data_points)) + 
+  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  theme_bw() +
+  labs(x="Study Data Points", y="Count") +
+  facet_grid(sp_construct ~ sp_task) +
+  theme(strip.background=element_blank()) +
+  scale_x_continuous(limits=c(1,9), breaks=c(2,3,4,5,6,7,8)) +
+  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8))
+```
+<br>
+
+# References
