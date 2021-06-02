@@ -1,11 +1,20 @@
 ---
 title: "LongPron: Tracking Longitudinal L2 Pronunciation Research Longitudinally"
-output: html_document
+date: "Last Update: `r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+    theme: spacelab
+    highlight: espresso
 bibliography: Longitudinal.bibtex
 nocite: |
   @*
 csl: apa-6th-edition.csl
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, out.width = "100%")
+```
 
 ```{r, load-libs, echo=F, message=F, warning=F}
 library("tidyr")
@@ -15,15 +24,19 @@ library("janitor")
 library("ggplot2")
 library("knitr")
 library("kableExtra")
+library("forcats")
 ```
 
 ```{css, echo=F}
 caption {
   color: black
 }
+p {
+  font-size: 16px;
+}
 ```
 # Overview
-**Statement of Purpose**:This webpage is periodically updated with new longitudinal L2 pronunciation research that does not have a pronunciation-specific intervention. On this page, you can see the types of longitudinal studies that have been conducted up to this point, focusing on longitudinal design choices, such as study length and data points, and their intersection with participant sample and measurement characteristics. This page accompanies and builds upon Nagle (2021).
+**Statement of Purpose**: This webpage is periodically updated with new longitudinal L2 pronunciation research that does not have a pronunciation-specific intervention. On this page, you can see the types of longitudinal studies that have been conducted up to this point, focusing on longitudinal design choices, such as study length and data points, and their intersection with participant sample and measurement characteristics. This page accompanies and builds upon Nagle (2021).
 
 Nagle, C. L. (2021). Assessing the state of the art in longitudinal L2 pronunciation research: Trends and future directions. *Journal of Second Language Pronunciation*.
 
@@ -40,11 +53,9 @@ Email: cnagle[at]iastate.edu
 ```{r, load-data, message=F}
 long_data <- read.csv(
   file = here("Longitudinal Study Coding Book - R.csv")) %>% 
-  clean_names()
-long_data$length_bin <- factor(long_data$length_bin, c("0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"),
-                               levels = c("0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"))
-long_data$participant_age_bin <- factor(long_data$participant_age_bin, c("Child", "Adolescent", "Adult"),
-                               levels = c("Child", "Adolescent", "Adult"))
+  clean_names() %>% 
+  mutate(length_bin = fct_relevel(length_bin, "0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"),
+         participant_age_bin = fct_relevel(participant_age_bin, "Child", "Adolescent", "Adult"))
 ```
 ```{r, print-table}
 long_data %>% 
@@ -60,7 +71,7 @@ long_data %>%
   geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
   theme_bw() +
   labs(x="Publication Year", y = "Count") +
-  scale_x_continuous(breaks=c(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20))
+  scale_x_continuous(breaks=c(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21))
 ```
 <br>
 
