@@ -40,9 +40,9 @@ p {
 
 Nagle, C. L. (2021). Assessing the state of the art in longitudinal L2 pronunciation research: Trends and future directions. *Journal of Second Language Pronunciation*.
 
-**Researchers**: If you published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006.
+**Researchers**: If you have published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006 in a peer-reviewed journal.
 
-**Authors**: If you notice an error in the coding for your article, please email me (cnagle[at]iastate.edu) so that I can correct it.
+**Authors**: If you believe that there has been an error in the coding for your article, please contact me.
 
 **My Contact Information**:  
 Charlie Nagle  
