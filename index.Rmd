@@ -54,49 +54,72 @@ Charlie Nagle
 The University of Texas at Austin  
 Email: cnagle[at]austin.utexas.edu
 
+**Notes**
+I have reconfigured the data set from the format published and analyzed in Nagle (2021). In the updated data set, I treat each sample as an individual entry, which means that research reports that include multiple samples have multiple entries. By treating each sample as an individual entry in the data set, we can see how many unique longitudinal samples have been collected, including samples that were included in the same research report. 
+
+Research reports may have multiple samples for any of the following reasons: (1) L1 background, (2) age range, (3) context of learning. The "Multiple Entry" variable allows the data to be subset to exclude multiple entries to avoid double counting studies for certain tabulations, such as study length, data points, and so on. 
+
 # Current Data Set
-```{r, load-data, message=F}
-long_data <- read.csv(
-  file = here("Longitudinal Study Coding Book - R.csv")) %>% 
+
+```{r, load-data, message = F}
+long.data <- read.csv(
+  file = here("New Longitudinal Research Synthesis.csv")) %>% 
   clean_names() %>% 
   mutate(length_bin = fct_relevel(length_bin, "0 to 4", "4 to 8", "8 to 12", "12 to 24", "24+"),
          participant_age_bin = fct_relevel(participant_age_bin, "Child", "Adolescent", "Adult"))
 ```
+
 ```{r, print-table}
-long_data %>% 
+long.data %>% 
   rmarkdown::paged_table()
 ```
 <br>
 
 # Publication Trends
-```{r, gg-yearlypubs-longpron, fig.cap="**Figure 1**. Longitudinal L2 Pronunciation Publications by Year", fig.dim=c(5,4), warning=F}
-long_data %>%
-  filter(exclude_all_multiple_entries == "No") %>%
-  ggplot(aes(x=year)) +
+```{r, gg-yearlypubs-longpron, fig.cap = "**Figure 1**. Longitudinal L2 Pronunciation Publications by Year", fig.dim = c(5,4), warning = F}
+long.data %>%
+  filter(multiple_entry == "No") %>%
+  ggplot(aes(x = study_year)) +
   geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
   theme_bw() +
-  labs(x="Publication Year", y = "Count") +
-  scale_x_continuous(breaks=c(6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21))
+  labs(x = "Publication Year", y = "Count") +
+  scale_x_continuous(breaks=c(2006,
+                              2007,
+                              2008,
+                              2009,
+                              2010,
+                              2011,
+                              2012,
+                              2013,
+                              2014,
+                              2015,
+                              2016,
+                              2017,
+                              2018,
+                              2019,
+                              2020,
+                              2021))
 ```
 <br>
 
 # Longitudinal Characteristics
-```{r, gg-lengthdatapoints, fig.cap="**Figure 2**. Study Length by Data Points", fig.dim=c(5,4), warning=F}
-long_data %>%
-  filter(exclude_all_multiple_entries == "No") %>%
-  ggplot(aes(x=length_months, y=data_points, color = l2)) +
-  geom_point(position=position_dodge(width=2), alpha=0.5, size=3) +
+
+```{r, gg-lengthdatapoints, fig.cap = "**Figure 2**. Study Length by Data Points", fig.dim = c(5,4), warning = F}
+long.data %>%
+  filter(multiple_entry == "No") %>%
+  ggplot(aes(x = length_months, y = data_points_number, color = l2)) +
+  geom_point(position = position_dodge(width = 2), alpha = 0.5, size = 3) +
   theme_bw() +
-  labs(x="Study Length in Months", y="Study Data Points") +
-  theme(legend.position="bottom") +
+  labs(x = "Study Length in Months", y = "Study Data Points") +
+  theme(legend.position = "bottom") +
   scale_y_continuous(breaks = c(2, 3, 4, 5, 6, 7, 8)) +
   scale_x_continuous(breaks = c(0, 4, 8, 12, 16, 20, 24), limits=c(0, 30))
 ```
 <br>
 ```{r}
-long_data %>%
-  filter(exclude_all_multiple_entries == "No") %>%
-  tabyl(length_bin, data_points) %>%
+long.data %>%
+  filter(multiple_entry == "No") %>%
+  tabyl(length_bin, data_points_number) %>%
   adorn_totals( where = c("row", "col") ) %>%
   adorn_percentages("row") %>%
   adorn_pct_formatting() %>%
@@ -108,61 +131,62 @@ long_data %>%
 <br>
 
 # Longitudinal Characteristics by Sample Characteristics
-```{r, gg-lengthsample, fig.cap="**Figure 3**. Study Length by Learner Age Group and Context of Learning.", fig.dim=c(7,5), warning=F}
-long_data %>%
-  filter(exclude_save_age_context == "No") %>%
-  ggplot(aes(x=length_bin)) + 
-  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+
+```{r, gg-lengthsample, fig.cap="**Figure 3**. Number of Unique Samples: Study Length by Learner Age Group", fig.dim = c(7,5), warning = F}
+long.data %>%
+  ggplot(aes(x = length_bin)) + 
+  geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
   theme_bw() +
-  labs(x="Study Length", y="Count") +
-  facet_grid(context ~ participant_age_bin) +
-  theme(strip.background=element_blank()) +
-  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8)) + 
-  theme(axis.text.x=element_text(angle=45, vjust=.5))
+  labs(x = "Study Length", y = "Count") +
+  facet_wrap(~ participant_age_bin) +
+  theme(strip.background = element_blank()) +
+  theme(axis.text.x = element_text(angle = 45, vjust = .5))
 ```
 <br>
-```{r, gg-pointssample, fig.cap="**Figure 4**. Study Length by Context of Learning for Adult Learners.", fig.dim=c(5,3), warning=F}
-long_data %>%
-  filter(exclude_save_age_context == "No") %>%
+```{r, gg-pointssample, fig.cap = "**Figure 4**. Number of Unique Samples: Study Length by Context of Learning for Adult Learners", fig.dim = c(5,3), warning = F}
+long.data %>%
   filter(participant_age_bin == "Adult") %>%
-  ggplot(aes(x=data_points)) + 
-  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  pivot_longer(cols = context_fl:context_sl,
+               names_to = "context") %>%
+  filter(value == "Yes") %>%
+  ggplot(aes(x = data_points_number)) + 
+  geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
   theme_bw() +
-  labs(x="Study Data Points", y="Count") +
-  facet_grid(~context) +
+  labs(x = "Study Data Points", y = "Count") +
+  facet_grid(~ context) +
   theme(strip.background=element_blank()) +
-  scale_x_continuous(limits=c(1,9), breaks=c(2,3,4,5,6,7,8)) +
-  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8))
+  scale_x_continuous(limits = c(1,9), breaks = c(2,3,4,5,6,7,8))
 ```
 <br>
 
 # Longitudinal Characteristics by Measurement Characteristics
-```{r, gg-lengthmeasurement, fig.cap="**Figure 5**. Study Length by Measurement Characteristics.", fig.dim=c(5,5), warning=F}
-long_data %>%
-  filter(exclude_save_sp == "No") %>%
-  filter(sp_task == "Production - Controlled" | sp_task == "Production - Spontaneous") %>%
+
+```{r, gg-lengthmeasurement, fig.cap = "**Figure 5**. Number of Unique Samples: Study Length by Construct", fig.dim = c(5,5), warning=F}
+long.data %>%
+  pivot_longer(cols = perception:production_global,
+               names_to = "construct") %>%
+  filter(value == "Yes") %>%
   ggplot(aes(length_bin)) + 
-  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+  geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
   theme_bw() +
-  labs(x="Study Length", y="Count") +
-  facet_grid(sp_construct ~ sp_task) +
-  theme(strip.background=element_blank()) +
-  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8)) + 
-  theme(axis.text.x = element_text(angle=45, vjust=.5))
+  labs(x = "Study Length", y = "Count") +
+  facet_wrap(~ construct) +
+  theme(strip.background = element_blank()) +
+  theme(axis.text.x = element_text(angle = 45, vjust = .5))
 ```
 <br>
-```{r, gg-pointsmeasurement, fig.cap="**Figure 6**. Study Data Points by Measurement Characteristics.", fig.dim=c(5,5), warning=F}
-long_data %>%
-  filter(exclude_save_sp == "No") %>%
-  filter(sp_task == "Production - Controlled" | sp_task == "Production - Spontaneous") %>%
-  ggplot(aes(data_points)) + 
-  geom_bar(stat="count", color="black", fill="#56B4E9", width=0.8) +
+```{r, gg-pointsmeasurement, fig.cap = "**Figure 6**. Number of Unique Samples: Study Data Points by Construct", fig.dim = c(5,5), warning = F}
+long.data %>%
+  pivot_longer(cols = perception:production_global,
+               names_to = "construct") %>%
+  filter(value == "Yes") %>%
+  ggplot(aes(data_points_number)) + 
+  geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
   theme_bw() +
-  labs(x="Study Data Points", y="Count") +
-  facet_grid(sp_construct ~ sp_task) +
-  theme(strip.background=element_blank()) +
-  scale_x_continuous(limits=c(1,9), breaks=c(2,3,4,5,6,7,8)) +
-  scale_y_continuous(limits=c(0,10), breaks=c(2,4,6,8))
+  labs(x = "Study Data Points", y = "Count") +
+  facet_wrap(~ construct) +
+  theme(strip.background = element_blank()) +
+  scale_x_continuous(limits = c(1, 9), breaks = c(2, 3, 4, 5, 6, 7, 8))
 ```
 <br>
 
