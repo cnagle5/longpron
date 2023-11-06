@@ -87,7 +87,7 @@ long.data %>%
   geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
   theme_bw() +
   labs(x = "Publication Year", y = "Count") +
-  scale_x_continuous(breaks = c(2006:2021))
+  scale_x_continuous(breaks = c(2006:2023))
 ```
 
 <br>
