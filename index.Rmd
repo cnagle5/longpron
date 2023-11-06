@@ -76,7 +76,7 @@ long.data %>%
 <br>
 
 # Publication Trends
-```{r, gg-yearlypubs-longpron, fig.cap = "**Figure 1**. Longitudinal L2 Pronunciation Publications by Year", fig.dim = c(5,4), warning = F}
+```{r, gg-yearlypubs-longpron, fig.cap = "**Figure 1**. Longitudinal L2 Pronunciation Publications by Year", fig.dim = c(5, 4), warning = F}
 long.data %>%
   filter(multiple_entry == "No") %>%
   ggplot(aes(x = study_year)) +
@@ -104,7 +104,7 @@ long.data %>%
 
 # Longitudinal Characteristics
 
-```{r, gg-lengthdatapoints, fig.cap = "**Figure 2**. Study Length by Data Points", fig.dim = c(5,4), warning = F}
+```{r, gg-lengthdatapoints, fig.cap = "**Figure 2**. Study Length by Data Points", fig.dim = c(5, 4), warning = F}
 long.data %>%
   filter(multiple_entry == "No") %>%
   ggplot(aes(x = length_months, y = data_points_number, color = l2)) +
@@ -132,7 +132,7 @@ long.data %>%
 
 # Longitudinal Characteristics by Sample Characteristics
 
-```{r, gg-lengthsample, fig.cap="**Figure 3**. Number of Unique Samples: Study Length by Learner Age Group", fig.dim = c(7,5), warning = F}
+```{r, gg-lengthsample, fig.cap="**Figure 3**. Number of Unique Samples: Study Length by Learner Age Group", fig.dim = c(5, 3), warning = F}
 long.data %>%
   ggplot(aes(x = length_bin)) + 
   geom_bar(stat = "count", color = "black", fill = "#56B4E9", width = 0.8) +
@@ -143,7 +143,7 @@ long.data %>%
   theme(axis.text.x = element_text(angle = 45, vjust = .5))
 ```
 <br>
-```{r, gg-pointssample, fig.cap = "**Figure 4**. Number of Unique Samples: Study Length by Context of Learning for Adult Learners", fig.dim = c(5,3), warning = F}
+```{r, gg-pointssample, fig.cap = "**Figure 4**. Number of Unique Samples: Study Length by Context of Learning for Adult Learners", fig.dim = c(5, 3), warning = F}
 long.data %>%
   filter(participant_age_bin == "Adult") %>%
   pivot_longer(cols = context_fl:context_sl,
@@ -161,7 +161,7 @@ long.data %>%
 
 # Longitudinal Characteristics by Measurement Characteristics
 
-```{r, gg-lengthmeasurement, fig.cap = "**Figure 5**. Number of Unique Samples: Study Length by Construct", fig.dim = c(5,5), warning=F}
+```{r, gg-lengthmeasurement, fig.cap = "**Figure 5**. Number of Unique Samples: Study Length by Construct", fig.dim = c(5, 3), warning = F}
 long.data %>%
   pivot_longer(cols = perception:production_global,
                names_to = "construct") %>%
@@ -175,7 +175,7 @@ long.data %>%
   theme(axis.text.x = element_text(angle = 45, vjust = .5))
 ```
 <br>
-```{r, gg-pointsmeasurement, fig.cap = "**Figure 6**. Number of Unique Samples: Study Data Points by Construct", fig.dim = c(5,5), warning = F}
+```{r, gg-pointsmeasurement, fig.cap = "**Figure 6**. Number of Unique Samples: Study Data Points by Construct", fig.dim = c(5, 3), warning = F}
 long.data %>%
   pivot_longer(cols = perception:production_global,
                names_to = "construct") %>%
