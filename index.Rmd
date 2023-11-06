@@ -35,19 +35,24 @@ p {
   font-size: 16px;
 }
 ```
+
 # Overview
-**Statement of Purpose**: This webpage is periodically updated with new longitudinal L2 pronunciation research that does not have a pronunciation-specific intervention. On this page, you can see the types of longitudinal studies that have been conducted up to this point, focusing on longitudinal design choices, such as study length and data points, and their intersection with participant sample and measurement characteristics. This page accompanies and builds upon Nagle (2021).
+
+**Statement of Purpose**
+This webpage is periodically updated with new longitudinal L2 pronunciation research that does not have a pronunciation-specific intervention. On this page, you can see the types of longitudinal studies that have been conducted up to this point, focusing on longitudinal design choices, such as study length and data points, and their intersection with participant sample and measurement characteristics. This page accompanies and builds upon
 
 Nagle, C. L. (2021). Assessing the state of the art in longitudinal L2 pronunciation research: Trends and future directions. *Journal of Second Language Pronunciation*.Advance online publication. http://doi.org/10.1075/jslp.20059.nag
 
-**Researchers**: If you have published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006 in a peer-reviewed journal.
+**Researchers**
+If you have published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006 in a peer-reviewed journal.
 
-**Authors**: If you believe that there has been an error in the coding for your article, please contact me.
+**Authors**
+If you believe that there has been an error in the coding for your article, please contact me.
 
 **My Contact Information**:  
 Charlie Nagle  
-Iowa State University  
-Email: cnagle[at]iastate.edu
+The University of Texas at Austin  
+Email: cnagle[at]austin.utexas.edu
 
 # Current Data Set
 ```{r, load-data, message=F}
