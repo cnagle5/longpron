@@ -1,5 +1,5 @@
 ---
-title: "LongPron: Tracking Longitudinal L2 Pronunciation Research Longitudinally"
+title: "LongPron: Tracking Longitudinal L2 Pronunciation Research"
 date: "Last Update: `r Sys.Date()`"
 output: 
   html_document: 
@@ -43,13 +43,12 @@ This webpage is periodically updated with new longitudinal L2 pronunciation rese
 
 Nagle, C. L. (2021). Assessing the state of the art in longitudinal L2 pronunciation research: Trends and future directions. *Journal of Second Language Pronunciation*, *7*(2), 154-182. http://doi.org/10.1075/jslp.20059.nag
 
-**Notes**  
-I have reconfigured the data set from the format published and analyzed in Nagle (2021). In the updated data set, I treat each sample as an individual entry, which means that research reports that include multiple samples have multiple entries. By treating each sample as an individual entry in the data set, we can see how many unique longitudinal samples have been collected, including samples that were included in the same research report. Some researchers have analyzed the same group of participants in several reports, but it is not always clear if the sample is the exact same across reports, so I treat those samples as unique.
+In that publication, I synthesized longitudinal pronunciation research that met three basic inclusion criteria: (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006 in a peer-reviewed journal.
 
-Research reports may have multiple samples for any of the following reasons: (1) L1 background, (2) age range, (3) context of learning. The "Multiple Entry" variable allows the data to be subset to exclude multiple entries to avoid double counting studies for certain tabulations, such as study length, data points, and so on. 
+I am now expanding beyond the initial scope of that study, and I have reconfigured the data set from the format published and analyzed in Nagle (2021). In the updated data set, I treat each sample as an individual entry, which means that research reports that include multiple samples have multiple entries. By treating each sample as an individual entry in the data set, we can see how many unique longitudinal samples have been collected, including samples that were included in the same research report. Some researchers have analyzed the same group of participants in several reports, but it is not always clear if the sample is the exact same across reports, so I treat those samples as unique. Research reports may have multiple samples for any of the following reasons: (1) L1 background, (2) age range, (3) context of learning. The "Multiple Entry" variable allows the data to be subset to exclude multiple entries to avoid double counting studies for certain tabulations, such as study length, data points, and so on. 
 
 **Researchers**  
-If you have published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate. Please note the following inclusion criteria: a study dealing with any aspect of L2 pronunciation learning that (1) tracked the same groups of participants over two or more data points, (2) did not include pronunciation-related training or a pronunciation-specific intervention, and (3) was published after 2006 in a peer-reviewed journal.
+If you have published a longitudinal L2 pronunciation study that you think should be included in this webpage, please email me the citation so that I can review it and incorporate it if appropriate.
 
 **Authors**  
 If you believe that there has been an error in the coding for your article, please contact me.
@@ -61,6 +60,9 @@ If there is a particular cross-tabulation you're interested in but don't see it 
 Charlie Nagle  
 The University of Texas at Austin  
 Email: cnagle[at]austin.utexas.edu
+
+**APA 7 Citation**  
+Nagle, C. (Year, Month Day). *LongPron: Tracking longitudinal L2 pronunciation research*. https://cnagle5.github.io/longpron/#publication-trends 
 
 # Current Data Set
 
