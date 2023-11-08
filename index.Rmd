@@ -62,7 +62,7 @@ The University of Texas at Austin
 Email: cnagle[at]austin.utexas.edu
 
 **APA 7 Citation**  
-Nagle, C. (Year, Month Day). *LongPron: Tracking longitudinal L2 pronunciation research*. https://cnagle5.github.io/longpron/#publication-trends 
+Nagle, C. (Year, Month Day). *LongPron: Tracking longitudinal L2 pronunciation research*. https://cnagle5.github.io/longpron/ 
 
 # Current Data Set
 
